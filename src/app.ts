@@ -6,6 +6,7 @@ import express, { Application, Request, Response } from "express";
 import cron from "node-cron";
 import path from "path";
 import qs from "qs";
+import { AllRouters } from "./app/routes";
 // import { envVars } from "./app/config/env";
 // import { auth } from "./app/lib/auth";
 // import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
@@ -62,7 +63,7 @@ app.use(express.urlencoded({ extended: true }));
 //   }
 // });
 
-// app.use("/api/v1", IndexRoutes);
+app.use("/api/v1", AllRouters);
 
 // Basic route
 app.get("/", async (req: Request, res: Response) => {
