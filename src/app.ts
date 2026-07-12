@@ -7,6 +7,7 @@ import cron from "node-cron";
 import path from "path";
 import qs from "qs";
 import { AllRouters } from "./app/routes";
+import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
 // import { envVars } from "./app/config/env";
 // import { auth } from "./app/lib/auth";
 // import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
@@ -63,7 +64,7 @@ app.use(express.urlencoded({ extended: true }));
 //   }
 // });
 
-app.use("/api/v1", AllRouters);
+app.use("/api", AllRouters);
 
 // Basic route
 app.get("/", async (req: Request, res: Response) => {
@@ -73,7 +74,7 @@ app.get("/", async (req: Request, res: Response) => {
   });
 });
 
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 // app.use(notFound);
 
 export default app;

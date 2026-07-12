@@ -1,42 +1,16 @@
 import dotenv from "dotenv";
-import status from "http-status";
-// import AppError from "../errorHelpers/AppError";
 
-dotenv.config();
+import path from "path";
 
-interface EnvConfig {
-  NODE_ENV: string;
-  PORT: string;
-  DATABASE_URL: string;
-  ACCESS_TOKEN_SECRET: string;
-  REFRESH_TOKEN_SECRET: string;
-}
+dotenv.config({ path: path.join(process.cwd(), ".env") });
 
-const loadEnvVariables = (): EnvConfig => {
-  const requireEnvVariable = [
-    "NODE_ENV",
-    "PORT",
-    "DATABASE_URL",
-    "ACCESS_TOKEN_SECRET",
-    "REFRESH_TOKEN_SECRET",
-  ];
-  requireEnvVariable.forEach((variable) => {
-    if (!process.env[variable]) {
-      // throw new Error(`Environment variable ${variable} is required but not set in .env file.`);
-      // throw new AppError(
-      //   status.INTERNAL_SERVER_ERROR,
-      //   `Environment variable ${variable} is required but not set in .env file.`,
-      // );
-    }
-  });
-
-  return {
-    NODE_ENV: process.env.NODE_ENV as string,
-    PORT: process.env.PORT as string,
-    DATABASE_URL: process.env.DATABASE_URL as string,
-    ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET as string,
-    REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET as string,
-  };
+export const envVars = {
+  NODE_ENV: process.env.NODE_ENV,
+  BCRYPT_SALT_ROUNDS: process.env.BCRYPT_SALT_ROUNDS,
+  PORT: process.env.PORT,
+  DATABASE_URL: process.env.DATABASE_URL,
+  ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
+  REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
+  ACCESS_TOKEN_EXPIRES_IN: process.env.ACCESS_TOKEN_EXPIRES_IN,
+  REFRESH_TOKEN_EXPIRES_IN: process.env.REFRESH_TOKEN_EXPIRES_IN,
 };
-
-export const envVars = loadEnvVariables();
