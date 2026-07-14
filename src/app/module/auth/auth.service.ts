@@ -9,6 +9,7 @@ import { ILoginUserPayload, IRegisterUserPayload } from "./auth.interface";
 import AppError from "../../errorHepers/AppError";
 import bcrypt from "bcryptjs";
 import { tokenUtils } from "../../utils/token";
+import { IRequestUser } from "../../interfaces/requestUser.interface";
 
 const registerUser = async (payload: IRegisterUserPayload) => {
   const { name, email, password } = payload;
@@ -112,8 +113,23 @@ const loginUser = async (payload: ILoginUserPayload) => {
     refreshToken,
   };
 };
+const getMe = async (user: IRequestUser) => {
+  const isUserExists = await prisma.user.findUnique({
+    where: {
+      id: user.userId,
+    },
+  });
+
+  console.log("isUser", isUserExists);
+  if (!isUserExists) {
+    throw new AppError(status.NOT_FOUND, "User not found");
+  }
+
+  return isUserExists;
+};
 
 export const AuthService = {
   registerUser,
   loginUser,
+  getMe,
 };
