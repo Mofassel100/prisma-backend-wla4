@@ -1,5 +1,5 @@
 import status from "http-status";
-import { JwtPayload } from "jsonwebtoken";
+import { JwtPayload, SignOptions } from "jsonwebtoken";
 import { envVars } from "../../config/env";
 
 import { prisma } from "../../lib/prisma";
@@ -66,46 +66,51 @@ const registerUser = async (payload: IRegisterUserPayload) => {
 const loginUser = async (payload: ILoginUserPayload) => {
   const { email, password } = payload;
 
-  // const data = await prisma.({
-  //   body: {
-  //     email,
-  //     password,
-  //   },
-  // });
+  const userOpe = await prisma.user.findUnique({
+    where: { email },
+  });
 
-  // if (data.user.status === UserStatus.BLOCKED) {
-  //   throw new AppError(status.FORBIDDEN, "User is blocked");
-  // }
+  if (!userOpe) {
+    throw new Error("User not found");
+  }
 
-  // if (data.user.isDeleted || data.user.status === UserStatus.DELETED) {
-  //   throw new AppError(status.NOT_FOUND, "User is deleted");
-  // }
+  const user = await prisma.user.findUniqueOrThrow({
+    where: { email },
+  });
 
-  // const accessToken = tokenUtils.getAccessToken({
-  //   userId: data.user.id,
-  //   role: data.user.role,
-  //   name: data.user.name,
-  //   email: data.user.email,
-  //   status: data.user.status,
-  //   isDeleted: data.user.isDeleted,
-  //   emailVerified: data.user.emailVerified,
-  // });
+  if (user.status === "SUSPENDED") {
+    throw new Error(
+      "Your account has been SUSPENDED. Please contact Authorization.",
+    );
+  }
 
-  // const refreshToken = tokenUtils.getRefreshToken({
-  //   userId: data.user.id,
-  //   role: data.user.role,
-  //   name: data.user.name,
-  //   email: data.user.email,
-  //   status: data.user.status,
-  //   isDeleted: data.user.isDeleted,
-  //   emailVerified: data.user.emailVerified,
-  // });
+  const isPasswordMatched = await bcrypt.compare(password, user.password);
 
-  // return {
-  //   ...data,
-  //   accessToken,
-  //   refreshToken,
-  // };
+  if (!isPasswordMatched) {
+    throw new Error("Password is incorrect");
+  }
+
+  const jwtPayload = {
+    userId: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  };
+
+  const accessToken = jwtUtils.createToken(
+    jwtPayload,
+    envVars.ACCESS_TOKEN_SECRET,
+    envVars.ACCESS_TOKEN_EXPIRES_IN as SignOptions,
+  );
+  const refreshToken = jwtUtils.createToken(
+    jwtPayload,
+    envVars.REFRESH_TOKEN_SECRET,
+    envVars.REFRESH_TOKEN_EXPIRES_IN as SignOptions,
+  );
+  return {
+    accessToken,
+    refreshToken,
+  };
 };
 
 export const AuthService = {
