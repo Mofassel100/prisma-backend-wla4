@@ -7,6 +7,7 @@ import { jwtUtils } from "../utils/jwt";
 import { Role } from "../../../generated/prisma/enums";
 import { catchAsync } from "../shared/catchAsync";
 import { envVars } from "../config/env";
+import { IRequestUser } from "../interfaces/requestUser.interface";
 
 declare global {
   namespace Express {
@@ -30,7 +31,6 @@ export const checkAuth = (...requiredRoles: Role[]) => {
       : req.headers.authorization?.startsWith("Bearer ")
         ? req.headers.authorization?.split(" ")[1]
         : req.headers.authorization;
-
     if (!token) {
       throw new Error(
         "You are not logged in. Please log in to access this resource.",
@@ -47,6 +47,7 @@ export const checkAuth = (...requiredRoles: Role[]) => {
     }
 
     const { email, name, userId, role } = verifiedToken.data as JwtPayload;
+    console.log(role as string, "ami auth");
 
     if (requiredRoles.length && !requiredRoles.includes(role)) {
       throw new Error(

@@ -11,7 +11,7 @@ const getAccessToken = (payload: JwtPayload) => {
   const accessToken = jwtUtils.createToken(
     payload,
     envVars.ACCESS_TOKEN_SECRET as string,
-    { expiresIn: envVars.ACCESS_TOKEN_EXPIRES_IN } as SignOptions,
+    envVars.ACCESS_TOKEN_EXPIRES_IN as SignOptions,
   );
 
   return accessToken;
@@ -21,7 +21,7 @@ const getRefreshToken = (payload: JwtPayload) => {
   const refreshToken = jwtUtils.createToken(
     payload,
     envVars.REFRESH_TOKEN_SECRET as string,
-    { expiresIn: envVars.REFRESH_TOKEN_EXPIRES_IN } as SignOptions,
+    envVars.REFRESH_TOKEN_EXPIRES_IN as SignOptions,
   );
   return refreshToken;
 };

@@ -10,9 +10,10 @@ import AppError from "../../errorHepers/AppError";
 import bcrypt from "bcryptjs";
 import { tokenUtils } from "../../utils/token";
 import { IRequestUser } from "../../interfaces/requestUser.interface";
+import { Role } from "../../../../generated/prisma/enums";
 
 const registerUser = async (payload: IRegisterUserPayload) => {
-  const { name, email, password } = payload;
+  const { name, email, password, role } = payload;
   const user = await prisma.user.findUnique({
     where: { email },
   });
@@ -20,15 +21,21 @@ const registerUser = async (payload: IRegisterUserPayload) => {
   if (user) {
     throw new Error("User already exist.Please try another email");
   }
+  const allowedRoles = [Role.Admin, Role.Customer, Role.Provider];
+
+  if (!allowedRoles.includes(payload.role as Role)) {
+    throw new Error("Invalid role");
+  }
   const hashedPassword = await bcrypt.hash(
     password,
     Number(envVars.BCRYPT_SALT_ROUNDS),
   );
 
   const data = await prisma.user.create({
-    data: { name: name, email: email, password: hashedPassword },
+    data: { name: name, email: email, password: hashedPassword, role: role },
   });
 
+  console.log(data.role, "ami resgister");
   if (!data) {
     // throw new Error("Failed to register patient");
     throw new AppError(status.BAD_REQUEST, "Failed to register patient");

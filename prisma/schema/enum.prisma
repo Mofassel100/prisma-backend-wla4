@@ -1,10 +1,42 @@
 enum Role {
-    CUSTOMER
-    PROVIDER
-    ADMIN
+    Customer
+    Provider
+    Admin
 }
 
 enum Status {
     ACTIVE
     SUSPENDED
+}
+
+enum Categoroy {
+    Cycling
+    Camping
+    Fitness
+    Hiking
+    Water_Sports
+    Fishing
+    Climbing
+    Winter_Sports
+    Running
+    Skating
+}
+
+enum SportType {
+    FOOTBALL
+    CRICKET
+    TENNIS
+}
+
+enum GearCondition {
+    NEW
+    EXCELLENT
+    GOOD
+    FAIR
+}
+
+enum GearStatus {
+    PENDING
+    APPROVED
+    REJECTED
 }

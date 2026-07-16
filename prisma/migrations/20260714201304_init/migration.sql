@@ -1,13 +1,17 @@
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('CUSTOMER', 'PROVIDER', 'ADMIN');
+CREATE TYPE "Role" AS ENUM ('Customer', 'Provider', 'Admin');
 
 -- CreateEnum
 CREATE TYPE "Status" AS ENUM ('ACTIVE', 'SUSPENDED');
+
+-- CreateEnum
+CREATE TYPE "Categoroy" AS ENUM ('Cycling', 'Camping', 'Fitness', 'Hiking', 'Water_Sports', 'Fishing', 'Climbing', 'Winter_Sports', 'Running', 'Skating');
 
 -- CreateTable
 CREATE TABLE "Category" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "category" "Categoroy" NOT NULL DEFAULT 'Climbing',
     "status" "Status" NOT NULL DEFAULT 'ACTIVE',
     "sortOrder" INTEGER NOT NULL DEFAULT 0,
     "totalGearItems" INTEGER NOT NULL DEFAULT 0,
@@ -22,13 +26,13 @@ CREATE TABLE "Category" (
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "email" TEXT,
-    "phone" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "phone" TEXT,
     "password" TEXT NOT NULL,
-    "address" TEXT NOT NULL,
-    "city" TEXT NOT NULL,
-    "country" TEXT NOT NULL,
-    "role" "Role" NOT NULL DEFAULT 'CUSTOMER',
+    "address" TEXT,
+    "city" TEXT,
+    "country" TEXT,
+    "role" "Role" NOT NULL DEFAULT 'Customer',
     "status" "Status" NOT NULL DEFAULT 'ACTIVE',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
