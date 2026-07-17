@@ -31,7 +31,18 @@ const gearGetAllFromDB = async () => {
   const result = await prisma.gearItem.findMany();
   return result;
 };
-const gearSingleFromDB = async (user: "") => {};
+const gearSingleFromDB = async (id: string) => {
+  const result = await prisma.gearItem.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      provider: true,
+      category: true,
+    },
+  });
+  return result;
+};
 const gearGetOrderFromDB = async (payload: "") => {};
 const gearUpdatedOrderFromDB = async (user: "") => {};
 const gearUpdatedFromDB = async (payload: "") => {};

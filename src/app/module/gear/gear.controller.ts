@@ -29,11 +29,13 @@ const gearGetAllFromDB = catchAsync(async (req: Request, res: Response) => {
 });
 // gear single data
 const gearSingleFromDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await GearService.gearSingleFromDB(id as string);
   sendResponse(res, {
     success: true,
     httpStatusCode: status.OK,
-    message: "Gear updated successfully in successfully",
-    data: "",
+    message: "Gear get single successfully in successfully",
+    data: result,
   });
 });
 //  gearGetOrderFromDB
