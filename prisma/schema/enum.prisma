@@ -40,3 +40,25 @@ enum GearStatus {
     APPROVED
     REJECTED
 }
+
+enum PickupMethod {
+    SELF_PICKUP
+    HOME_DELIVERY
+}
+
+enum PaymentStatus {
+    PENDING
+    PAID
+    FAILED
+    REFUNDED
+}
+
+enum OrderStatus {
+    PENDING
+    CONFIRMED
+    PROCESSING
+    READY_FOR_PICKUP
+    OUT_FOR_DELIVERY
+    COMPLETED
+    CANCELLED
+}

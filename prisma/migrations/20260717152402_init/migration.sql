@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "RentalOrders" ALTER COLUMN "rentalStartDate" DROP NOT NULL,
+ALTER COLUMN "rentalEndDate" DROP NOT NULL,
+ALTER COLUMN "pickupMethod" DROP NOT NULL,
+ALTER COLUMN "subtotal" DROP NOT NULL,
+ALTER COLUMN "deliveryFee" DROP NOT NULL,
+ALTER COLUMN "paymentStatus" DROP NOT NULL,
+ALTER COLUMN "orderStatus" DROP NOT NULL;
