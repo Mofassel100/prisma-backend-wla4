@@ -9,6 +9,6 @@ const router = Router();
 router.use("/user", UserRoutes);
 router.use("/auth", AuthRoutes);
 router.use("/category", CategoryRoutes);
-router.use("/provider", GearRoutes);
+router.use("/", GearRoutes);
 router.use("/", RentalOrderRoutes);
 export const AllRouters = router;
