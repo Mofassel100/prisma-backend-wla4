@@ -3,6 +3,7 @@ import AppError from "../../errorHepers/AppError";
 import { IRequestUser } from "../../interfaces/requestUser.interface";
 import { prisma } from "../../lib/prisma";
 import { IRentalOrder } from "./rentalOrder.interface";
+import { Role } from "../../../../generated/prisma/enums";
 
 const rentalOrderCreateFromDB = async (
   payload: IRentalOrder,
@@ -41,9 +42,18 @@ const rentalOrderCreateFromDB = async (
 
   return result;
 };
+const rentalOrderGetFromDB = async (payload: "", user: IRequestUser) => {
+  const { userId } = user;
+
+  const result = await prisma.rentalOrders.findMany({
+    where: { customerId: userId },
+  });
+  return result;
+};
 const gearUpdatedFromDB = async (payload: "") => {};
 const gearDeletedFromDB = async (user: "") => {};
 
 export const RentalOrderService = {
   rentalOrderCreateFromDB,
+  rentalOrderGetFromDB,
 };

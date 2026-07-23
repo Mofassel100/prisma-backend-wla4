@@ -23,6 +23,21 @@ const rentalOrderCreateFromDB = catchAsync(
     });
   },
 );
+const rentalOrderGetUserFromDB = catchAsync(
+  async (req: Request, res: Response) => {
+    const userId = req.user as IRequestUser;
+    const data = req.body;
+
+    const result = await RentalOrderService.rentalOrderGetFromDB(data, userId);
+
+    sendResponse(res, {
+      httpStatusCode: status.CREATED,
+      success: true,
+      message: "Rental Order Get successfully",
+      data: result,
+    });
+  },
+);
 
 const rentalOrderUpdatedFromDB = catchAsync(
   async (req: Request, res: Response) => {
@@ -47,6 +62,7 @@ const rentalOdrderDeleteFromDB = catchAsync(
 );
 export const RentalOrderController = {
   rentalOrderCreateFromDB,
+  rentalOrderGetUserFromDB,
   rentalOdrderDeleteFromDB,
   rentalOrderUpdatedFromDB,
 };
