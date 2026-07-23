@@ -22,7 +22,7 @@ router.patch(
   GearController.gearUpdatedOrderFromDB,
 );
 router.delete(
-  "/provider/orders",
+  "/provider/gear/:id",
   checkAuth(Role.Provider),
   GearController.gearDeleteFromDB,
 );

@@ -165,7 +165,20 @@ const gearUpdatedPutFromDB = async (gearId: string, gearData: IGearItem) => {
 };
 const gearUpdatedOrderFromDB = async (user: "") => {};
 const gearUpdatedFromDB = async (payload: "") => {};
-const gearDeletedFromDB = async (user: "") => {};
+const gearDeletedFromDB = async (id: string) => {
+  const isGearItem = await prisma.gearItem.findFirstOrThrow({
+    where: { id: id },
+  });
+  if (isGearItem.id !== id) {
+    throw new Error("You are not the owner of this geart items");
+  }
+  const result = await prisma.gearItem.delete({
+    where: {
+      id: id,
+    },
+  });
+  return result;
+};
 
 export const GearService = {
   gearCreateFromDB,

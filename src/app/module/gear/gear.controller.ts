@@ -74,11 +74,13 @@ const gearUpdatedOrderFromDB = catchAsync(
 );
 
 const gearDeleteFromDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await GearService.gearDeletedFromDB(id as string);
   sendResponse(res, {
     success: true,
     httpStatusCode: status.OK,
     message: "Gear Remove in successfully !",
-    data: "",
+    data: result,
   });
 });
 export const GearController = {
