@@ -97,11 +97,16 @@ const categoryCreateFromDB = async (payload: ICategory, user: IRequestUser) => {
 //    };
 // };
 
+const categoryGetFromDB = async () => {
+  const result = await prisma.category.findMany();
+  return result;
+};
 const categoryUpdatedFromDB = async (payload: "") => {};
 const categoryDeletedFromDB = async (user: "") => {};
 
 export const categoryService = {
   categoryCreateFromDB,
+  categoryGetFromDB,
   categoryDeletedFromDB,
   categoryUpdatedFromDB,
 };

@@ -6,14 +6,14 @@ import { Role } from "../../../../generated/prisma/enums";
 const router = Router();
 
 router.post(
-  "/create",
+  "/categorys/create",
   checkAuth(Role.Admin),
   categoryController.categoryCreateFromDB,
 );
 router.get(
-  "/",
-  checkAuth(Role.Admin),
-  categoryController.categoryUpdatedFromDB,
+  "/categories",
+
+  categoryController.categoryGetFromDB,
 );
 
 // router.post("/login", AuthController.loginUser);

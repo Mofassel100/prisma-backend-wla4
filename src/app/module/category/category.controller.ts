@@ -4,6 +4,7 @@ import { sendResponse } from "../../shared/sendResponse";
 import status from "http-status";
 import { categoryService } from "./category.service";
 import { IRequestUser } from "../../interfaces/requestUser.interface";
+import { Result } from "pg";
 
 const categoryCreateFromDB = catchAsync(async (req: Request, res: Response) => {
   const user = req.user as IRequestUser;
@@ -18,11 +19,12 @@ const categoryCreateFromDB = catchAsync(async (req: Request, res: Response) => {
 });
 
 const categoryGetFromDB = catchAsync(async (req: Request, res: Response) => {
-  const result = await sendResponse(res, {
+  const result = await await categoryService.categoryGetFromDB();
+  sendResponse(res, {
     success: true,
     httpStatusCode: status.OK,
     message: "Gear updated successfully in successfully",
-    data: "",
+    data: result,
   });
 });
 const categoryUpdatedFromDB = catchAsync(
@@ -38,16 +40,18 @@ const categoryUpdatedFromDB = catchAsync(
 
 const categoryDeletedFromDB = catchAsync(
   async (req: Request, res: Response) => {
+    const result = await categoryService.categoryGetFromDB;
     sendResponse(res, {
       success: true,
       httpStatusCode: status.OK,
       message: "Gear Remove in successfully !",
-      data: "",
+      data: result,
     });
   },
 );
 export const categoryController = {
   categoryCreateFromDB,
   categoryUpdatedFromDB,
+  categoryGetFromDB,
   categoryDeletedFromDB,
 };

@@ -10,7 +10,7 @@ import { premiumRoutes } from "../module/premium/premium.router";
 const router = Router();
 router.use("/user", UserRoutes);
 router.use("/auth", AuthRoutes);
-router.use("/categorys", CategoryRoutes);
+router.use("/", CategoryRoutes);
 router.use("/", GearRoutes);
 router.use("/", RentalOrderRoutes);
 router.use("/subscription", SubscriptionRoutes);
