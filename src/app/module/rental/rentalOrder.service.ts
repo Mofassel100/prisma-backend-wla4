@@ -3,7 +3,6 @@ import AppError from "../../errorHepers/AppError";
 import { IRequestUser } from "../../interfaces/requestUser.interface";
 import { prisma } from "../../lib/prisma";
 import { IRentalOrder } from "./rentalOrder.interface";
-import { Role } from "../../../../generated/prisma/enums";
 
 const rentalOrderCreateFromDB = async (
   payload: IRentalOrder,
@@ -50,10 +49,24 @@ const rentalOrderGetFromDB = async (payload: "", user: IRequestUser) => {
   });
   return result;
 };
+const rentalOrderGetSingleUserFromDB = async (
+  rentalId: string,
+  user: IRequestUser,
+) => {
+  console.log(user.role, "ami rental order service theke bolci vai");
+  const result = await prisma.rentalOrders.findUniqueOrThrow({
+    where: {
+      id: rentalId,
+    },
+  });
+  return result;
+};
+
 const gearUpdatedFromDB = async (payload: "") => {};
 const gearDeletedFromDB = async (user: "") => {};
 
 export const RentalOrderService = {
   rentalOrderCreateFromDB,
   rentalOrderGetFromDB,
+  rentalOrderGetSingleUserFromDB,
 };

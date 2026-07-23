@@ -31,7 +31,7 @@ const rentalOrderGetUserFromDB = catchAsync(
     const result = await RentalOrderService.rentalOrderGetFromDB(data, userId);
 
     sendResponse(res, {
-      httpStatusCode: status.CREATED,
+      httpStatusCode: status.OK,
       success: true,
       message: "Rental Order Get successfully",
       data: result,
@@ -39,6 +39,24 @@ const rentalOrderGetUserFromDB = catchAsync(
   },
 );
 
+const rentalOrderGetSingleUserFromDB = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const rentalUser = req.user as IRequestUser;
+    const result = await RentalOrderService.rentalOrderGetSingleUserFromDB(
+      id as string,
+      rentalUser,
+    );
+
+    sendResponse(res, {
+      success: true,
+      httpStatusCode: status.OK,
+      message: "Rental get single Order successfully in successfully",
+      data: result,
+    });
+  },
+);
 const rentalOrderUpdatedFromDB = catchAsync(
   async (req: Request, res: Response) => {
     sendResponse(res, {
@@ -63,6 +81,7 @@ const rentalOdrderDeleteFromDB = catchAsync(
 export const RentalOrderController = {
   rentalOrderCreateFromDB,
   rentalOrderGetUserFromDB,
+  rentalOrderGetSingleUserFromDB,
   rentalOdrderDeleteFromDB,
   rentalOrderUpdatedFromDB,
 };
