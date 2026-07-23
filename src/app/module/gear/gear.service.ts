@@ -143,7 +143,26 @@ const gearSingleFromDB = async (id: string) => {
   });
   return result;
 };
-const gearGetOrderFromDB = async (payload: "") => {};
+const gearUpdatedPutFromDB = async (gearId: string, gearData: IGearItem) => {
+  const result = await prisma.gearItem.update({
+    where: {
+      id: gearId,
+    },
+    data: {
+      name: gearData.name,
+      brand: gearData.brand,
+      availableQuantity: gearData.availableQuantity,
+      condition: gearData.condition,
+      description: gearData.description,
+      maxRentalDays: gearData.maxRentalDays,
+      minRentalDays: gearData.minRentalDays,
+      status: gearData.status,
+      stockQuantity: gearData.stockQuantity,
+      sportType: gearData.sportType,
+    },
+  });
+  return result;
+};
 const gearUpdatedOrderFromDB = async (user: "") => {};
 const gearUpdatedFromDB = async (payload: "") => {};
 const gearDeletedFromDB = async (user: "") => {};
@@ -155,5 +174,5 @@ export const GearService = {
   gearGetAllFromDB,
   gearSingleFromDB,
   gearUpdatedOrderFromDB,
-  gearGetOrderFromDB,
+  gearUpdatedPutFromDB,
 };

@@ -29,6 +29,7 @@ const gearGetAllFromDB = catchAsync(async (req: Request, res: Response) => {
     data: result.data,
   });
 });
+
 // gear single data
 const gearSingleFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -49,12 +50,15 @@ const gearGetOrderFromDB = catchAsync(async (req: Request, res: Response) => {
     data: "",
   });
 });
-const gearUpdatedFromDB = catchAsync(async (req: Request, res: Response) => {
+const gearUpdatedPutFromDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const gearData = req.body;
+  const result = await GearService.gearUpdatedPutFromDB(id as string, gearData);
   sendResponse(res, {
     success: true,
     httpStatusCode: status.OK,
-    message: "Gear updated successfully in successfully",
-    data: "",
+    message: "Gear updated  successfully in successfully",
+    data: result,
   });
 });
 
@@ -80,7 +84,7 @@ const gearDeleteFromDB = catchAsync(async (req: Request, res: Response) => {
 export const GearController = {
   gearCreateFromDB,
   gearDeleteFromDB,
-  gearUpdatedFromDB,
+  gearUpdatedPutFromDB,
   gearGetAllFromDB,
   gearGetOrderFromDB,
   gearSingleFromDB,

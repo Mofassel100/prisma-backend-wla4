@@ -12,9 +12,9 @@ router.post(
 router.get("/gear", GearController.gearGetAllFromDB);
 router.get("/gear/:id", GearController.gearSingleFromDB);
 router.put(
-  "/provider/orders",
+  "/provider/gear/:id",
   checkAuth(Role.Provider),
-  GearController.gearUpdatedFromDB,
+  GearController.gearUpdatedPutFromDB,
 );
 router.patch(
   "/provider/orders",

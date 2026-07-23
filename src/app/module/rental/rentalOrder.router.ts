@@ -20,5 +20,10 @@ router.get(
   checkAuth(Role.Customer),
   RentalOrderController.rentalOrderGetSingleUserFromDB,
 );
+router.put(
+  "/rentals/:id",
+  checkAuth(Role.Customer),
+  RentalOrderController.rentalOrderGetSingleUserFromDB,
+);
 
 export const RentalOrderRoutes = router;
