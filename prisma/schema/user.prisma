@@ -12,6 +12,7 @@ model User {
     categoryId   Category[]
     gearItemId   GearItem[]
     rentalOrders RentalOrders[]
+    subscription Subscription?
     createdAt    DateTime       @default(now())
     updatedAt    DateTime       @updatedAt
 }

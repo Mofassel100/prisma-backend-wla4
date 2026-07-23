@@ -10,6 +10,12 @@ router.post(
   checkAuth(Role.Admin),
   categoryController.categoryCreateFromDB,
 );
+router.get(
+  "/",
+  checkAuth(Role.Admin),
+  categoryController.categoryUpdatedFromDB,
+);
+
 // router.post("/login", AuthController.loginUser);
 // router.get(
 //   "/me",

@@ -17,6 +17,14 @@ const categoryCreateFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const categoryGetFromDB = catchAsync(async (req: Request, res: Response) => {
+  const result = await sendResponse(res, {
+    success: true,
+    httpStatusCode: status.OK,
+    message: "Gear updated successfully in successfully",
+    data: "",
+  });
+});
 const categoryUpdatedFromDB = catchAsync(
   async (req: Request, res: Response) => {
     sendResponse(res, {

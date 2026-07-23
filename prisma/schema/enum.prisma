@@ -62,3 +62,9 @@ enum OrderStatus {
     COMPLETED
     CANCELLED
 }
+
+enum SubscriptionStatus {
+    ACTIVE
+    CANCELED
+    EXPIRED
+}

@@ -12,13 +12,13 @@ model GearItem {
     stockQuantity     Int @default(0)
     availableQuantity Int @default(0)
 
-    minRentalDays Int @default(1)
-    maxRentalDays Int @default(30)
-
-    status      GearStatus @default(PENDING)
-    isAvailable Boolean    @default(true)
-    providerId  String
-    provider    User       @relation(fields: [providerId], references: [id], onDelete: Cascade)
+    minRentalDays Int        @default(1)
+    maxRentalDays Int        @default(30)
+    isPremium     Boolean    @default(false)
+    status        GearStatus @default(PENDING)
+    isAvailable   Boolean    @default(true)
+    providerId    String
+    provider      User       @relation(fields: [providerId], references: [id], onDelete: Cascade)
 
     categoryId   String
     category     Category       @relation(fields: [categoryId], references: [id], onDelete: Restrict)

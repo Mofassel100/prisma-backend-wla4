@@ -19,12 +19,14 @@ const gearCreateFromDB = catchAsync(async (req: Request, res: Response) => {
 });
 // gear get all data
 const gearGetAllFromDB = catchAsync(async (req: Request, res: Response) => {
-  const result = await GearService.gearGetAllFromDB();
+  const query = req.query;
+  const result = await GearService.gearGetAllFromDB(query);
   sendResponse(res, {
     success: true,
     httpStatusCode: status.OK,
-    message: "Gear updated successfully in successfully",
-    data: result,
+    message: "Gear retrieved in successfully",
+    meta: result.meta,
+    data: result.data,
   });
 });
 // gear single data

@@ -4,13 +4,13 @@ interface IResponseData<T> {
   httpStatusCode: number;
   success: boolean;
   message: string;
-  data?: T;
   meta?: {
     page: number;
     limit: number;
-    total: number;
-    totalPages: number;
+    total?: number;
+    totalPages?: number;
   };
+  data?: T;
 }
 
 export const sendResponse = <T>(res: Response, resData: IResponseData<T>) => {
@@ -19,7 +19,7 @@ export const sendResponse = <T>(res: Response, resData: IResponseData<T>) => {
   res.status(httpStatusCode).json({
     success,
     message,
-    data,
     meta,
+    data,
   });
 };

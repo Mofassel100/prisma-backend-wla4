@@ -3,6 +3,11 @@ import {
   GearStatus,
   SportType,
 } from "../../../../generated/prisma/enums";
+import {
+  GearItemModel,
+  AggregateGearItem,
+  GearItemWhereInput,
+} from "../../../../generated/prisma/models";
 
 export interface IGearItem {
   name: string;
@@ -24,4 +29,11 @@ export interface IGearItem {
 
   providerId: string;
   categoryId: string;
+}
+export interface IGearQuery extends GearItemWhereInput {
+  searchTerm?: string;
+  page?: string;
+  limit?: string;
+  sortOrder?: string;
+  sortBy?: string;
 }

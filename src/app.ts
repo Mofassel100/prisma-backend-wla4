@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { toNodeHandler } from "better-auth/node";
+
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
-import cron from "node-cron";
 import path from "path";
 import qs from "qs";
 import { AllRouters } from "./app/routes";
@@ -43,6 +42,7 @@ app.use(
 );
 
 // app.use("/api/auth", toNodeHandler(auth));
+app.use("/api/subscription/webhook", express.raw({ type: "application/json" }));
 
 // Enable URL-encoded form data parsing
 app.use(express.urlencoded({ extended: true }));
